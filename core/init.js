@@ -11,6 +11,7 @@ class InitManager {
     // 入口方法
     InitManager.app = app;
     InitManager.initLoadRouters();
+    InitManager.loadingHttpExceptions();
   }
   static initLoadRouters() {
     const loadingRoutes = (obj) => {
@@ -21,6 +22,10 @@ class InitManager {
     requireDirectory(module, path.join(__dirname, "../app/routes/v1"), {
       visit: loadingRoutes,
     });
+  }
+  static loadingHttpExceptions() {
+    const errors = require("../core/http-exceptions");
+    global.errors = errors;
   }
 }
 
