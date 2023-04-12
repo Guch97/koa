@@ -21,6 +21,7 @@ const catchError = async (ctx, next) => {
         mes: "未知错误异常",
         errorCode: 9999,
         requestUrl: `${ctx.method} ${ctx.path}`,
+        error: error,
       };
       ctx.status = 500;
     }

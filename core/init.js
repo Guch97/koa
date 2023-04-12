@@ -5,13 +5,14 @@
 const requireDirectory = require("require-directory");
 const path = require("path");
 const Router = require("koa-router");
-
+const config = require("../config/config");
 class InitManager {
   static initCore(app) {
     // 入口方法
     InitManager.app = app;
     InitManager.initLoadRouters();
     InitManager.loadingHttpExceptions();
+    InitManager.loadingConfig();
   }
   static initLoadRouters() {
     const loadingRoutes = (obj) => {
@@ -22,6 +23,9 @@ class InitManager {
     requireDirectory(module, path.join(__dirname, "../app/routes/v1"), {
       visit: loadingRoutes,
     });
+  }
+  static loadingConfig() {
+    global.config = config;
   }
   static loadingHttpExceptions() {
     const errors = require("../core/http-exceptions");
