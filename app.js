@@ -7,6 +7,8 @@ const InitManager = require("./core/init");
 const { koaBody } = require("koa-body");
 const catchError = require("./middleware/exception");
 
+// 表创建
+require("./models/user");
 // const router = require("../koa/routes/v1");
 const app = new Koa();
 

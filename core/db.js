@@ -14,15 +14,18 @@ const sequelize = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PWD, {
   host: MYSQL_HOST,
   timezone: "+08:00",
   dialect: "mysql" /* 选择 'mysql' | 'mariadb' | 'postgres' | 'mssql' 其一 */,
-  define: {},
+  define: {
+    // 删除时间
+    paranoid: true,
+    timestamps: true,
+    createdAt: "create_at",
+    updatedAt: "update_at",
+    deletedAt: "delete_at",
+    underscored: true, //驼峰转化为下划线
+  },
 });
 
-// sequelize.authenticate().then(() => {
-//    console.log('数据库连接成功')
-// }).catch((err) => {
-//    console.log('数据库连接失败', err)
-// })
-
+sequelize.sync();
 module.exports = {
-  db: sequelize,
+  sequelize,
 };
