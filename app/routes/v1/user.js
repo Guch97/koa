@@ -4,17 +4,18 @@
  */
 const KoaRouter = require("koa-router");
 const router = new KoaRouter({ prefix: "/v1/user" });
-const {
-  beEmailRole,
-  bePassWord,
-  beStringRule,
-  beMinZeroMaxHundred,
-} = require("../../validator/validator");
-router.post("/register", async (ctx, next) => {
-  // email passowrd passowrd1 nickname
-  const { passWord, passWord2, niceName, email } = ctx.request.body;
-  bePassWord(passWord, passWord2);
+const { User } = require("../../../models/user");
+const { bePassWord } = require("../../validator/validator");
+const { findOneEmail } = require("../../../service/user");
 
-  ctx.body = "333";
+router.post("/register", async (ctx) => {
+  const { passWord, passWord2, nikeName, email } = ctx.request.body;
+  // 密码验证
+  bePassWord(passWord, passWord2);
+  // 数据库查询
+  await findOneEmail({ email });
+  const user = { email, passWord, nikeName };
+  await User.create(user);
+  ctx.body = ctx.successRes();
 });
 module.exports = router;

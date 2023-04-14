@@ -2,10 +2,27 @@
  * @Author: xs
  * @Date: 2023-04-12 15:40:15
  */
-const { Sequelize, Model } = require("sequelize");
+const bcryptjs = require("bcryptjs");
+const { Sequelize, Model, col } = require("sequelize");
 const { sequelize } = require("../core/db");
 
-class User extends Model {}
+class User extends Model {
+  static async validatorEmailPassWord(email, passWord) {
+    const user = await User.findOne({
+      where: {
+        email,
+      },
+    });
+    if (!user) {
+      throw new global.errors.NotFound("用户不存在");
+    }
+    const correct = bcryptjs.compareSync(passWord, user.passWord);
+    if (!correct) {
+      throw new Error("密码错误");
+    }
+    return user.dataValues;
+  }
+}
 
 User.init(
   {
@@ -14,9 +31,19 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    nickName: Sequelize.STRING,
+    nikeName: Sequelize.STRING,
     email: Sequelize.STRING,
-    passWord: Sequelize.STRING,
+    passWord: {
+      type: Sequelize.STRING,
+      set(val) {
+        // 加密
+        let salt = bcryptjs.genSaltSync(10);
+        let pas = bcryptjs.hashSync(val, salt);
+        this.setDataValue("passWord", pas);
+      },
+    },
   },
   { sequelize, tableName: "user" }
 );
+
+module.exports = { User };

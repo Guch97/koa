@@ -13,6 +13,7 @@ class InitManager {
     InitManager.initLoadRouters();
     InitManager.loadingHttpExceptions();
     InitManager.loadingConfig();
+    InitManager.successRes();
   }
   static initLoadRouters() {
     const loadingRoutes = (obj) => {
@@ -26,6 +27,16 @@ class InitManager {
   }
   static loadingConfig() {
     global.config = config;
+  }
+  static successRes() {
+    const { app } = InitManager;
+    app.context.successRes = (data = {}) => {
+      return {
+        data,
+        msg: "success",
+        errorCode: 0,
+      };
+    };
   }
   static loadingHttpExceptions() {
     const errors = require("../core/http-exceptions");
