@@ -13,8 +13,22 @@ class Auth {
       // token 检测
       const { authorization = "" } = ctx.request.header;
       const token = authorization.split(" ")[1];
-      const user = jwt.verify(token, JWT_SECRET);
-      ctx.state.user = user;
+      if (!token) {
+        throw new global.errors.Forbbiden();
+      }
+      try {
+        const user = jwt.verify(token, JWT_SECRET);
+        ctx.auth = user;
+      } catch (error) {
+        switch (error.name) {
+          case "TokenExpiredError":
+            throw new Error("token过期");
+          case "JsonWebTokenError":
+            throw new Error("无效的token");
+          default:
+            throw error;
+        }
+      }
       await next();
     };
   }

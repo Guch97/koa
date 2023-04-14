@@ -10,7 +10,7 @@ const router = new KoaRouter({ prefix: "/v1/token" });
 router.post("/login", async (ctx, next) => {
   const { email, passWord } = ctx.request.body;
   const user = await User.validatorEmailPassWord(email, passWord);
-  const token = await generateToken(user.id, 2);
+  const token = await generateToken(user.id, { email, passWord, level: 8 });
   ctx.body = ctx.successRes({ token });
 });
 

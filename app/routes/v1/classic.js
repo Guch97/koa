@@ -7,9 +7,8 @@ const { Auth } = require("../../../middleware/auth");
 const router = new KoaRouter({ prefix: "/v1/book" });
 
 router.post("/classic", new Auth().m, (ctx, next) => {
-  const user = ctx.state.user;
+  const user = ctx.auth;
   ctx.body = ctx.successRes(user);
-  console.log("user :>> ", user); //xs
 });
 
 module.exports = router;
