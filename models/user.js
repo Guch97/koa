@@ -3,7 +3,7 @@
  * @Date: 2023-04-12 15:40:15
  */
 const bcryptjs = require("bcryptjs");
-const { Sequelize, Model, col } = require("sequelize");
+const { Sequelize, Model } = require("sequelize");
 const { sequelize } = require("../core/db");
 
 class User extends Model {

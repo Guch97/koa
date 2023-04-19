@@ -8,7 +8,8 @@ const { koaBody } = require("koa-body");
 const catchError = require("./middleware/exception");
 const { Auth } = require("./middleware/auth");
 // 表创建
-require("./models/user");
+// require("./models/user");
+// require("./models/classic");
 // const router = require("../koa/routes/v1");
 const app = new Koa();
 
