@@ -8,14 +8,14 @@ class Art {
     let art = ull;
     switch (type) {
       case 100:
-        art = await Movie.findOne({
+        art = await Movie.scope("bh").findOne({
           where: {
             id: art_id,
           },
         });
         break;
       case 200:
-        art = await Music.findOne({
+        art = await Music.scope("bh").findOne({
           where: {
             id: art_id,
           },

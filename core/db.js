@@ -18,10 +18,17 @@ const sequelize = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PWD, {
     // 删除时间
     paranoid: true,
     timestamps: true,
-    createdAt: "create_at",
+    createdAt: "create_at", //重新命名
     updatedAt: "update_at",
     deletedAt: "delete_at",
     underscored: true, //驼峰转化为下划线
+    scopes: {
+      bh: {
+        attributes: {
+          exclude: ["update_at", "create_at", "delete_at"],
+        },
+      },
+    },
   },
 });
 
