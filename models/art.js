@@ -2,6 +2,7 @@
  * @Author: xs
  * @Date: 2023-04-19 11:11:25
  */
+const { Op } = require("sequelize");
 const { Movie, Music } = require("../models/classic");
 class Art {
   static async getData(art_id, type) {
@@ -11,6 +12,10 @@ class Art {
         art = await Movie.scope("bh").findOne({
           where: {
             id: art_id,
+            ssType: {
+              // 不等于400
+              [Op.not]: 400,
+            },
           },
         });
         break;
