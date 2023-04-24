@@ -7,6 +7,8 @@ const InitManager = require("./core/init");
 const { koaBody } = require("koa-body");
 const catchError = require("./middleware/exception");
 const { Auth } = require("./middleware/auth");
+const static = require("koa-static");
+const path = require("path");
 // 表创建
 // require("./models/user");
 // require("./models/classic");
@@ -20,6 +22,7 @@ app.use(catchError);
 // body参数验证
 app.use(koaBody());
 
+app.use(static(path.join(__dirname, "./static")));
 InitManager.initCore(app);
 // app.use(router.routes());
 app.listen(4001, () => {
