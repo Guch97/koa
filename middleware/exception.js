@@ -18,8 +18,8 @@ const catchError = async (ctx, next) => {
       ctx.code = error.code;
     } else {
       ctx.body = {
-        mes: "未知错误异常",
-        errorCode: 9999,
+        msg: "未知错误异常",
+        errorCode: 500,
         requestUrl: `${ctx.method} ${ctx.path}`,
         error: error.message ? error.message : error,
       };

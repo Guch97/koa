@@ -15,8 +15,6 @@ const path = require("path");
 // const router = require("../koa/routes/v1");
 const app = new Koa();
 
-// 权限验证
-app.use(new Auth().m);
 // 全局错误处理
 app.use(catchError);
 // body参数验证
@@ -24,7 +22,3 @@ app.use(koaBody());
 
 app.use(static(path.join(__dirname, "./static")));
 InitManager.initCore(app);
-// app.use(router.routes());
-app.listen(4001, () => {
-  console.log(">>>服务器启动");
-});

@@ -3,15 +3,18 @@
  * @Date: 2023-04-12 15:32:44
  */
 const { Sequelize } = require("sequelize");
-const {
-  MYSQL_HOST,
-  MYSQL_USER,
-  MYSQL_PWD,
-  MYSQL_DB,
-} = require("../config/config");
-
-const sequelize = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PWD, {
-  host: MYSQL_HOST,
+const DBconfig = require("../config/dbConfig");
+// const {
+//   MYSQL_HOST,
+//   MYSQL_USER,
+//   MYSQL_PWD,
+//   MYSQL_DB,
+// } = require("../config/config");
+const { host, user, password, database } = DBconfig.getConfig(
+  process.env.NODE_ENV
+);
+const sequelize = new Sequelize(database, user, password, {
+  host,
   timezone: "+08:00",
   dialect: "mysql" /* 选择 'mysql' | 'mariadb' | 'postgres' | 'mssql' 其一 */,
   define: {
