@@ -7,7 +7,7 @@ const { sequelize } = require("../core/db");
 
 class UserInfo {
   static createModel() {
-    return sequelize.define("userInfo", {
+    const model = sequelize.define("userInfo", {
       userId: {
         type: DataTypes.INTEGER,
         // 是否允许为空
@@ -49,6 +49,7 @@ class UserInfo {
         comment: "密码",
       },
     });
+    return model;
   }
 }
 module.exports = UserInfo.createModel();

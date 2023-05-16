@@ -20,10 +20,11 @@ const sequelize = new Sequelize(database, user, password, {
   define: {
     // 删除时间
     paranoid: true,
-    timestamps: true,
+    timestamps: false,
     createdAt: "create_at", //重新命名
     updatedAt: "update_at",
     deletedAt: "delete_at",
+    freezeTableName: false,
     underscored: true, //驼峰转化为下划线
     scopes: {
       bh: {
