@@ -9,7 +9,7 @@ const {
   findByProps,
   findByLike,
   findUserPage,
-} = require("../../service/userInfo");
+} = require("../../../modules/userInfo/dao/userInfo");
 router.post("/addUser", async (ctx) => {
   try {
     const useInfo = ctx.request.body;
