@@ -67,7 +67,8 @@ class UserInfo {
     return res;
   }
   // 满足条件valid ===1
-  // 聚合查询 groupBy data:[{
+  // 聚合查询 groupBy
+  // data: [{
   // address:'北京',
   // totalCount:'3',
   // }]
