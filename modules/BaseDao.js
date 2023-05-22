@@ -4,7 +4,7 @@
  */
 const path = require("path");
 const DBconfig = require("../config/dbConfig");
-const { Sequelize } = require("sequelize");
+const { Sequelize } = require("sequelize-typescript");
 
 class BaseDao {
   static baseDao = new BaseDao();
@@ -44,13 +44,13 @@ class BaseDao {
         acquire: 1000, //一条sql查询等待时间
       },
     });
+    this.sequelize.sync();
   }
   addModel() {
     const modelPath = path.join(process.cwd(), "./src/modules/decorModel");
-    console.log(this.sequelize, "sequelize");
     this.sequelize.addModels([modelPath]);
   }
 }
-// const baseDao = BaseDao.baseDao;
-// baseDao.addModel();
+const baseDao = BaseDao.baseDao;
+baseDao.addModel();
 module.exports = { sequelize } = BaseDao.baseDao;

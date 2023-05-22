@@ -2,7 +2,7 @@
  * @Author: xs
  * @Date: 2023-05-17 13:43:06
  */
-const { Column, Model, Table, DataTypes } = require("sequelize");
+const { Column, Model, Table, DataTypes } = require("sequelize-typescript");
 
 @Table({
   tableName: "userInfo",
